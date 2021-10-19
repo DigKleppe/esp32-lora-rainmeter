@@ -1,0 +1,36 @@
+
+<html>
+<head>
+<!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="js/chart.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript">
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(initChart);
+	// //* * 	google.load("visualization", "1", {packages:["corechart"]}); */ */
+	google.charts.load('current', {
+		packages : [ 'corechart', 'bar' ]
+	});
+</script>
+</head>
+<body>
+
+	<table id="dayTable">
+	</table>
+	<div id="rain_chart" style="width: 900px; height: 500px"></div>
+
+	<div id="info_chart" style="width: 900px; height: 500px"></div>
+</body>
+<!-- <body onload="printBtn();"> -->
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<style>
+	.input {
+		width: 98%
+	}
+</style>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<title>Settings</title>
+		<meta name="author" content="dig" />
+		<script src="js/wifiSettings.js" type="text/javascript" charset="utf-8"></script>
+		<!-- Date: 2017-11-18 -->
+
+	</head>
+	<body>
+
+	<body  onload="displaySettings()" ></body>
+
+	<form action="/action_page.php" name = "connectionSettingss" >
+
+		<h1> Network </h1>
+		<table>
+			<thead>
+				<tr>
+					<th class="name"/th><th class="valueLong"/th><th class="name"/th><th class="value"/th>
+					<tr>
+						<td><label for="mySSID">Module name: </label></td>
+						<td>
+						<input class = "input" type="text" name="APSSID" />
+						</td>
+					</tr>
+					<tr>
+						<td><label for="SSID"> Network name: </label></td>
+						<td>
+						<input class = "input" type="text" name="SSID" />
+						</td>
+					</tr>
+					<tr>
+						<td><label for="pwd"> Password: </label></td>
+						<td>
+						<input class = "input" type="password" name="pwd" />
+						</td>
+
+					<tr>
+						<td><label for="AccPwd">  AP Password: </label></td>
+						<td>
+						<input class = "input" type="password" name="AccPwd" />
+						</td>
+					</tr>
+				</h2>
+					
+		</table>
+		<p></p>
+		<p>
+			<input type="submit" value="Submit">
+		</p>
+	</form>
+	<p>
+		<h1> . </h1>
+	<p>
+		<li>
+			<a  href="./index.html" > Back</a>
+
+	</p>
+	</p>
+
+	</body>
+</html>
+

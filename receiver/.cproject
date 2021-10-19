@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="0.631744867">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.631744867" moduleId="org.eclipse.cdt.core.settings" name="Default">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="0.631744867" name="Default" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="org.eclipse.cdt.build.core.prefbase.cfg">
+					<folderInfo id="0.631744867." name="/" resourcePath="">
+						<toolChain id="org.eclipse.cdt.build.core.prefbase.toolchain.1462310651" name="No ToolChain" resourceTypeBasedDiscovery="false" superClass="org.eclipse.cdt.build.core.prefbase.toolchain">
+							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.1462310651.1813116109" name=""/>
+							<builder arguments="" buildPath="${workspace_loc:/${ProjName}/build}" command="ninja" enabledIncrementalBuild="true" id="org.eclipse.cdt.build.core.settings.default.builder.2031568199" incrementalBuildTarget="" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.1444122495" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.1195513279" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.1790672173" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/esp32/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include/lwip/port&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_common/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/heap/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/lwip/include/apps/"/>
+									<listOptionValue builtIn="false" value="/home/dig/projecten/esp32/esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_event/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/include/apps}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/nvs_flash/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/log/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/lwip/src/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/heap/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1533496092" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.592365119" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.479160604" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/esp32/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include/lwip/port&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_common/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/heap/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/lwip/include/apps/"/>
+									<listOptionValue builtIn="false" value="/home/dig/projecten/esp32/esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_event/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/include/apps}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/nvs_flash/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/log/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/lwip/src/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/heap/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/keys/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/loraTx/main/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1627631981" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.2019360936" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.765255982" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/esp32/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/lwip/include/lwip/port&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_common/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/heap/include/"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/lwip/include/apps/"/>
+									<listOptionValue builtIn="false" value="/home/dig/projecten/esp32/esp-idf/components/freertos/include/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_wifi/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/esp_event/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/include/apps}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/nvs_flash/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/log/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/lwip/src/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/heap/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/keys/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/lwip/include/lwip/port"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/loraTx/main/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include/hal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.400991683" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="test2|components/test2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="packages"/>
+			<storageModule moduleId="com.espressif.esp32.managedbuild.packs"/>
+		</cconfiguration>
+		<cconfiguration id="0.631744867.1097937912">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="0.631744867.1097937912" moduleId="org.eclipse.cdt.core.settings" name="flash">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="0.631744867.1097937912" name="flash" optionalBuildProperties="org.eclipse.cdt.docker.launcher.containerbuild.property.selectedvolumes=,org.eclipse.cdt.docker.launcher.containerbuild.property.volumes=" parent="org.eclipse.cdt.build.core.prefbase.cfg">
+					<folderInfo id="0.631744867.1097937912." name="/" resourcePath="">
+						<toolChain id="org.eclipse.cdt.build.core.prefbase.toolchain.1729978582" name="No ToolChain" resourceTypeBasedDiscovery="false" superClass="org.eclipse.cdt.build.core.prefbase.toolchain">
+							<targetPlatform id="org.eclipse.cdt.build.core.prefbase.toolchain.1729978582.1118852314" name=""/>
+							<builder arguments="" buildPath="${workspace_loc:/${ProjName}/build}" command="ninja" enabledIncrementalBuild="true" id="org.eclipse.cdt.build.core.settings.default.builder.1836829489" incrementalBuildTarget="flash" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.settings.default.builder">
+								<outputEntries>
+									<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="build"/>
+								</outputEntries>
+							</builder>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.1099498929" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs"/>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.1865969385" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.1425865828" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/freertos/include&#10;${IDF_PATH}/components/esp32/include&#10;${IDF_PATH}/components/lwip/include/lwip&#10;${IDF_PATH}/components/lwip/include/lwip/port&#10;${IDF_PATH}/components/driver/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include&#10;esp-idf/components/esp32/include&#10;esp-idf/components/lwip/include/lwip&#10;esp-idf/components/lwip/include/lwip/port&#10;esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/loraTx/main/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include/hal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.2081257851" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.1721157094" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.2037017231" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include&#10;esp-idf/components/esp32/include&#10;esp-idf/components/lwip/include/lwip&#10;esp-idf/components/lwip/include/lwip/port&#10;esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/loraTx/main/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include/hal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.39682487" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+							<tool id="org.eclipse.cdt.build.core.settings.holder.241636055" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="org.eclipse.cdt.build.core.settings.holder.incpaths.411831505" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${IDF_PATH}/components/freertos/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/freertos/include}&quot;"/>
+									<listOptionValue builtIn="false" value="../esp-idf/components/freertos/include&#10;esp-idf/components/esp32/include&#10;esp-idf/components/lwip/include/lwip&#10;esp-idf/components/lwip/include/lwip/port&#10;esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/esp32/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/lora/esp-idf/components/lwip/include/lwip}&quot;"/>
+									<listOptionValue builtIn="false" value="/esp-idf/components/driver/include"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/loraTx/main/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/libraries/Wire/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/driver/include/driver}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/hal/include/hal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/klp/averager/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/esp-idf/components/arduino/cores/esp32}&quot;"/>
+								</option>
+								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.630659556" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="test2|components/test2" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="packages"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="hello_world.null.392613606" name="hello_world"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default"/>
+		<configuration configurationName="flash"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="0.631744867.1097937912">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="0.631744867">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+</cproject>

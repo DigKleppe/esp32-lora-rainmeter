@@ -1,0 +1,7 @@
+${IDF_PATH/components/freertos/include}
+${IDF_PATH/components/esp32/include}
+${IDF_PATH/components/lwip/include}
+${IDF_PATH/components/lwip/include/lwip/port}
+${IDF_PATH/components/driver/include}
+${IDF_PATH/components/esp_common/include}
+${IDF_PATH/components/heap/include}
