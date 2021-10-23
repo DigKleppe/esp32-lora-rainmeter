@@ -73,8 +73,7 @@ idf.py build
 #include "LoRa.h"
 #include "main.h"
 
-#include "SSD1306Wire.h"
-//#include "TMP117.h"
+
 #include "ADS1X15.h"
 #include "ntc.h"
 #define PREAMBLES 				10  // nust be set at receiver side too
