@@ -1,4 +1,13 @@
 //  /home/dig/.espressif/tools/openocd-esp32/v0.10.0-esp32-20200709/openocd-esp32/bin/openocd -f interface/ftdi/esp32_devkitj_v1.cfg -f board/esp-wroom-32.cfg -c "program_esp /home/dig/projecten/esp32/thermometer/build/storage.bin 0x210000 verify"
+/*
+
+ cd ~/esp/esp-idf&&
+ . ./export.sh&&
+cd /mnt/HDlinux/projecten/git/esp32-lora-rainmeter/receiver/&&
+idf.py build
+
+*/
+
 
 #include <stdio.h>
 
@@ -77,7 +86,7 @@ gpio_num_t ALLGPIOS[] = {
 #define ESP_INTR_FLAG_DEFAULT 0
 
 static EventGroupHandle_t s_wifi_event_group;
-static const char *TAG = "smartconfig_example";
+static const char *TAG = "Rainmeter receiver";
 
 const char *wifi_network_ssid = "Klepnet";
 const char *wifi_network_password = "xxxxxxxxxxx";

@@ -3,6 +3,7 @@
 */
 var rainData;
 var infoData = 0; // for info, voltages etc
+var rawWeightData = 0; // debug raw weight for loadcell
 
 var chartRdy = false;
 var tick = 0;
@@ -73,6 +74,33 @@ var infoOptions = {
 	},
 };
 
+var rawWeightOptions = {
+	title: '',
+	curveType: 'function',
+	legend: { position: 'bottom' },
+
+	heigth: 200,
+	crosshair: { trigger: 'both' },	// Display crosshairs on focus and selection.
+	explorer: {
+		actions: ['dragToZoom', 'rightClickToReset'],
+		//actions: ['dragToPan', 'rightClickToReset'],
+		axis: 'horizontal',
+		keepInBounds: true,
+		maxZoomIn: 100.0
+	},
+	chartArea: { 'width': '90%', 'height': '60%' },
+
+	vAxes: {
+		0: { logScale: false },
+		1: { logScale: false }
+	},
+	series: {
+		0: { targetAxisIndex: 0 },// raw weight
+		1: { targetAxisIndex: 1 }// temperature
+	},
+};
+
+
 
 
 function clear() {
@@ -80,19 +108,7 @@ function clear() {
 	chart.draw(infoData, options);
 	tick = 0;
 }
-function setAvgs(input) {
-	vars[varsEnum.averages].value = input.value;
-}
 
-function averageCBChange(checkbox) {
-	vars[varsEnum.averagesCB].value = checkbox.checked;
-	if (checkbox.checked) {
-		infoData.addColumn('number', 'Avg');
-	}
-	else
-		infoData.removeColumn(2);
-
-}
 
 function initPage() {
 
@@ -164,41 +180,30 @@ function plotRain(channel, value) {
 	}
 }
 
-
-
-function setPoints(input) {
-	vars[varsEnum.NRPoints].value = input.value;
+function plotRawWeight ( channel, value){
+	if (chartRdy) {
+		if (channel == 1) {
+			rawWeightData.addRow();
+			if (rawWeightData.getNumberOfRows() > MAXPOINTS == true)
+				rawWeightData.removeRows(0, rawWeightData.getNumberOfRows() - MAXPOINTS);
+		}
+		var val = parseFloat(value); 
+		//value = parseFloat(value); // from string to float
+		rawWeightData.setValue(rawWeightData.getNumberOfRows() - 1, channel, val);
+	}
 }
 
-
-function setAvgs(input) {
-	vars[varsEnum.averages].value = input.value;
-}
-
-function setMin(input) {
-	vars[varsEnum.min].value = input.value;
-	options.vAxis.viewWindow.min = input.value
-
-}
-function setMax(input) {
-	vars[varsEnum.max].value = input.value;
-	options.vAxis.viewWindow.max = input.value;
-}
 
 function initChart() {
-
-	//rainChart = new google.visualization.LineChart(document.getElementById('rain_chart'));
 
 	rainChart = new google.visualization.ColumnChart(document.getElementById('rain_chart'));
 	infoData = new google.visualization.DataTable();
 	infoData.addColumn('string', 'Time');
-	//	infoData.addColumn('number', 'W');
-	//	infoData.addColumn('number', 'TW');
 	infoData.addColumn('number', 'vBat');
 	infoData.addColumn('number', 'vSol');
 	infoData.addColumn('number', 't');
 	
-		initPage();
+	initPage();
 
 	infoChart = new google.visualization.LineChart(document.getElementById('info_chart'));
 
@@ -206,6 +211,12 @@ function initChart() {
 	rainData.addColumn('string', 'Time');
 	rainData.addColumn('number', 'mm');
 	//	rainData.addColumn('number', 'w');// temporary
+
+	rawWeightChart = new google.visualization.LineChart(document.getElementById('rawWeight chart'));
+	rawWeightData = new google.visualization.DataTable();// temporary to investigate temperature coeff. loadcell
+	rawWeightData.addColumn('string', 'Time');
+	rawWeightData.addColumn('number', 'Raw');
+	rawWeightData.addColumn('number', 't');
 
 	chartRdy = true;
 	dontDraw = false;
@@ -284,10 +295,10 @@ function simplot() {
 		simValue1 += 0.01;
 		simValue2 = Math.sin(simValue1);
 		if ((n & 16) > 12)
-			w += 20000;
+			w += 20;
 
-
-		str2 = str2 + simMssgCnts++ + "," + simValue2 + "," + w + "," + (simValue2 + 2) + "," + (simValue2 + 3) + "," + (simValue2 + 20) + ",\n";
+//                                         delta  W            W                        RAW                    vBAT                       VSOL                       temperature                                                                     
+		str2 = str2 + simMssgCnts++ + "," + simValue2 + "," + w + "," + ( 100 *(simValue2 + 3)) + "," + (simValue2 + 20) +"," + (simValue2* 5)+ "," +  + (simValue2*4)+ "," +"\n";
 	}
 	plotArray(str2);
 }
@@ -341,20 +352,30 @@ function plotArray(str) {
 			}
 			if (dayIdx >= LOGDAYS)
 				dayIdx = 0;
-			for (var m = 3; m < 6; m++)
-				plotInfo(m - 2, arr[m]);
+				plotInfo( 1,arr[4] ); // weight
+				plotInfo( 2,arr[5] ); // total weight
+				plotInfo( 3,arr[6] ); // temperature
+								
+				plotRawWeight(1,arr[3]);
+				plotRawWeight(2,arr[6]);  // temperature
+				
+		//	for (var m = 3; m < 6; m++)
+		//		plotInfo(m - 2, arr[m]);
 		}
 		if (nrPoints == 1) { // then single point added 
 			updateLastDayTimeLabel(rainData);
 			updateLastDayTimeLabel(infoData);
+			updateLastDayTimeLabel(rawWeightData);
 		}
 		else {
 			updateAllDayTimeLabels(rainData);
 			updateAllDayTimeLabels(infoData);
+			updateAllDayTimeLabels(rawWeightData);
 		}
 	}
 	infoChart.draw(infoData, infoOptions);
 	rainChart.draw(rainData, rainOptions);
+	rawWeightChart.draw(rawWeightData, rawWeightOptions);
 
 	for (var d = 0; d < LOGDAYS; d++) {
 		var cellx = document.getElementById("d" + d);
@@ -362,8 +383,9 @@ function plotArray(str) {
 // 			undefined, // leave undefined to use the visitor's browser 
 // 			// locale or a string like 'en-US' to override it.
 // 			{ maximumFractionDigits: 1 });
-
-		cellx.innerHTML = 	dayTotal[d]. toFixed(1);
+        if 	(dayTotal[d] < 0 )
+            dayTotal[d] = 0;
+		cellx.innerHTML = dayTotal[d].toFixed(1);
 
 	}
 

@@ -14,7 +14,7 @@ typedef struct {
 #define BAND 868E6				// 868Mhz
 #define PREAMBLES 10
 
-#define DMMBOARD				1
+//#define DMMBOARD				1
 
 
 #ifdef DMMBOARD

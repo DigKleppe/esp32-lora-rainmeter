@@ -14,6 +14,7 @@ typedef struct {
 	int counts;
 	int weight;
 	int totalWeight;
+	int rawWeight;
 	float vBat;
 	float vSolar;
 	float temperature;

@@ -13,10 +13,11 @@
  * cd /mnt/HDlinux/projecten/esp32/loraTx2/
  * idf.py build
 
- cd ~/esp/esp-idf &&
- . ./export.sh &&
- cd /mnt/HDlinux/projecten/esp32/loraTx2/ &&
- idf.py build
+cd ~/esp/esp-idf&&
+ . ./export.sh&&
+cd /mnt/HDlinux/projecten/git/esp32-lora-rainmeter/transmitter/&&
+idf.py build
+
 
  */
 
@@ -193,6 +194,7 @@ void printScalesData (void){
 	printf ( "\n C:%d ",scalesData.counts);
 	printf ( "w:%3.1f ",(float)scalesData.weight/1000.0);
 	printf ( "tw:%3.1f\t",(float)scalesData.totalWeight/1000.0);
+	printf ( "rw:%d\t" ,scalesData.rawWeight);
 	printf ( "t:%2.2f ",scalesData.temperature);
 	printf ( "vBat:%2.2f ",scalesData.vBat);
 	printf ( "vSol:%2.2f ",scalesData.vSolar);

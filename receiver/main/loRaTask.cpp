@@ -92,6 +92,7 @@ void uartPrintScalesData(scalesData_t *scalesData) {
 	printf("\n C:%d ", scalesData->mssgCounts);
 	printf("w:%3.1f ", (float) scalesData->weight / 1000.0);
 	printf("tw:%3.1f\t", (float) scalesData->totalWeight / 1000.0);
+	printf ("rw:%d\t",scalesData->rawWeight);
 	printf("t:%2.2f ", scalesData->temperature);
 	printf("vBat:%2.2f ", scalesData->vBat);
 	printf("vSol:%2.2f ", scalesData->vSolar);
@@ -169,6 +170,7 @@ int printScalesData (char * p , scalesData_t * d ) {
 	int len = sprintf ( p ,"%d,",d->mssgCounts);
 	len += sprintf (p + len , "%3.1f,",(float)d->weight/1000.0);
 	len += sprintf ( p + len ,"%3.1f,",(float)d->totalWeight/1000.0);
+	len += sprintf ( p + len ,"%d,",d->rawWeight);
 	len += sprintf ( p + len ,"%2.2f,",d->vBat);
 	len += sprintf ( p + len ,"%2.2f,",d->vSolar);
 	len += sprintf ( p + len ,"%2.2f,\n",d->temperature);

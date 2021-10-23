@@ -51,6 +51,7 @@ typedef enum {
 
 HX711 scale;
 buffer_t weightBuffer;
+buffer_t rawWeightBuffer;
 scalesData_t *pScalesData; // = (scalesData_t*) pvParameters;
 bool zeroScales; // flag forces zero action
 
@@ -228,6 +229,7 @@ bool scalesTask() {
 		{
 			avgCntr = 0;
 			initBuffer(&weightBuffer, WEIGHTBUFFERSIZE);
+
 			do {
 				if (scale.is_ready()) {
 					reading = scale.read();
@@ -237,10 +239,12 @@ bool scalesTask() {
 				}
 			} while (avgCntr < WEIGHTBUFFERSIZE);
 
-			weigth = (int) (averageBuffer(&weightBuffer) - zero);    // mg
+			pScalesData->rawWeight =  (int) (averageBuffer(&weightBuffer));
+
+			weigth = pScalesData->rawWeight- zero;    // mg
 			deleteBuffer(&weightBuffer);
 #ifdef PRINT
-			printf("raw: %d \t", weigth);
+			printf("raw: %d \t", pScalesData->rawWeight);
 #endif
 			weigth *= CALFACTOR;
 			pScalesData->weight = weigth;
