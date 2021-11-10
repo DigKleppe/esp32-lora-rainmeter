@@ -7,16 +7,12 @@
  CONDITIONS OF ANY KIND, either express or implied.
  */
 
+/*
 
-/* cd ~/esp/esp-idf
- * . ./export.sh
- * cd /mnt/HDlinux/projecten/esp32/loraTx2/
- * idf.py build
-
-cd ~/esp/esp-idf&&
+ cd ~/esp/esp-idf&&
  . ./export.sh&&
-cd /mnt/HDlinux/projecten/git/esp32-lora-rainmeter/transmitter/&&
-idf.py build
+ cd /mnt/HDlinux/projecten/git/esp32-lora-rainmeter/transmitter/&&
+ idf.py build
 
 
  */
@@ -73,16 +69,24 @@ idf.py build
 #include "LoRa.h"
 #include "main.h"
 
-
 #include "ADS1X15.h"
 #include "ntc.h"
 #define PREAMBLES 				10  // nust be set at receiver side too
-//
-#define CYCLETIME				20 // every xxx seconds is measured
-#define LORATXTIME				300 // 5 minutes lora messages
-//#define CYCLETIME				2 // every xxx seconds is measured
-//#define LORATXTIME			10 // 5 minutes lora messages
 
+//#define FAST					1
+//
+
+#define CYCLETIME_LOWBAT		300 // at low bat
+
+#ifdef FAST
+#define CYCLETIME				2 // every xxx seconds is measured
+#define LORATXTIME				10 //sec lora messages
+#else
+#define CYCLETIME				60 // every xxx seconds is measured
+#define LORATXTIME				300 // 5 minutes lora messages
+#endif
+
+#define VBATMIN					3.0 // below this value no activity
 
 #define TIMER_DIVIDER       	16  //  Hardware timer clock divider 80Mhz
 #define TIMER_SCALE           	(TIMER_BASE_CLK / TIMER_DIVIDER)  // convert counter value to seconds
@@ -119,6 +123,7 @@ SSD1306Wire display(0x3C, OLED_SDA, OLED_SCL);
 #endif
 
 RTC_DATA_ATTR scalesData_t scalesData;
+RTC_DATA_ATTR float vBat;
 
 loraCommand_t command;
 volatile bool commandSync;
@@ -130,8 +135,6 @@ volatile bool commandSync;
 void measureSystem(void) {
 	float V;
 	uint16_t read_raw;
-
-	float vBat;
 	float vSolar;
 	read_raw = ADS.readADC(0);   // VDD ADC = 3.7V , R Ref connected to 3,3V on AN0
 
@@ -188,24 +191,24 @@ void measureSystem(void) {
 	scalesData.vSolar = vSolar;
 }
 
-
-void printScalesData (void){
-	printf ( "\n C:%d ",scalesData.counts);
-	printf ( "w:%3.1f ",(float)scalesData.weight/1000.0);
-	printf ( "tw:%3.1f\t",(float)scalesData.totalWeight/1000.0);
-	printf ( "rw:%d\t" ,scalesData.rawWeight);
-	printf ( "t:%2.2f ",scalesData.temperature);
-	printf ( "vBat:%2.2f ",scalesData.vBat);
-	printf ( "vSol:%2.2f ",scalesData.vSolar);
+void printScalesData(void) {
+	printf("\n Tx:%d ", scalesData.counts);
+	printf("\n C:%d ", scalesData.cycles);
+	printf("w:%3.1f ", (float) scalesData.weight / 1000.0);
+	printf("tw:%3.1f\t", (float) scalesData.totalWeight / 1000.0);
+	printf("rw:%d\t", scalesData.rawWeight);
+	printf("t:%2.2f ", scalesData.temperature);
+	printf("vBat:%2.2f ", scalesData.vBat);
+	printf("vSol:%2.2f ", scalesData.vSolar);
 //	printf ( "crc:%d ",scalesData.crc);
 }
 void calcCRCscalesData(void) {
-	scalesData.crc =  esp_rom_crc32_le(0, (uint8_t const *)&scalesData, sizeof (  scalesData) - sizeof( uint32_t));
+	scalesData.crc = esp_rom_crc32_le(0, (uint8_t const*) &scalesData, sizeof(scalesData) - sizeof(uint32_t));
 
 }
 void checkCRCscalesData(void) {
-	uint32_t crc = esp_rom_crc32_le(0, (uint8_t const *)&scalesData, sizeof (  scalesData) - sizeof( uint32_t));
-	if ( crc == scalesData.crc )
+	uint32_t crc = esp_rom_crc32_le(0, (uint8_t const*) &scalesData, sizeof(scalesData) - sizeof(uint32_t));
+	if (crc == scalesData.crc)
 		printf("crc ok\n");
 	else
 		printf("crc error\n");
@@ -216,16 +219,16 @@ void checkCRCscalesData(void) {
 }
 int tstcntr;
 extern "C" void app_main(void) {
-	const int wakeup_time_sec = CYCLETIME;
+
 	printf("loraTxRainSensor\n");
 
-	Wire.begin(OLED_SDA,OLED_SCL,400000); // also for ADC
+	Wire.begin(OLED_SDA, OLED_SCL, 400000); // also for ADC
 	SPI.begin(CONFIG_CLK, CONFIG_MISO, CONFIG_MOSI, CONFIG_NSS);
 	LoRa.setPins(CONFIG_NSS, CONFIG_RST, CONFIG_DIO0);
 
 	scalesInit();
-	if ( strcmp( formatStr, FORMATSTR ) != 0){
-		strcpy( formatStr,FORMATSTR); // powerup
+	if (strcmp(formatStr, FORMATSTR) != 0) {
+		strcpy(formatStr, FORMATSTR); // powerup
 		scalesInitNoRAM();
 		loraTxTmr = 0;
 		txCnts = 0;
@@ -240,50 +243,61 @@ extern "C" void app_main(void) {
 #endif
 
 	dayTimer++;
-	if ( dayTimer >= (24 * 60 * CYCLETIME)) {
+#ifdef FAST
+	if (dayTimer >= 5) {
+#else
+	if (dayTimer >= (24 * 60 /CYCLETIME)) {
+#endif
 		dayTimer = 0;
 		zeroScales = true; // force open valve and zero
 	}
 
 	while (1) {
-	if (!scalesTask()) {
+
+		if (vBat < VBATMIN) {
+			measureSystem();
+			if (vBat < VBATMIN ) {
+				esp_sleep_enable_timer_wakeup(CYCLETIME_LOWBAT * 1000000);
+				esp_deep_sleep_start();
+			}
+		} else {
+			if (!scalesTask()) {
 //	if (1){
 #ifndef DMMBOARD
-		measureSystem();
-	//	printScalesData();
+				measureSystem();
+				//	printScalesData();
 //		scalesData.vBat++;
 //		scalesData.cycles++;
 //		scalesData.temperature = rand();
 #endif
-			loraTxTmr++;
-			if ( loraTxTmr >= ( LORATXTIME/CYCLETIME)) {
-				loraTxTmr = 0;
+				loraTxTmr++;
+				if (loraTxTmr >= ( LORATXTIME / CYCLETIME)) {
+					loraTxTmr = 0;
 
-				scalesData.counts++;
-				printf("TxCnts: %d\n", scalesData.counts);
-				calcCRCscalesData();
+					scalesData.counts++;
+					printf("TxCnts: %d\n", scalesData.counts);
+					calcCRCscalesData();
 
-				if (!LoRa.begin(BAND)) {
-					Serial.println("Starting LoRa failed!");
-					vTaskDelay(5000 / portTICK_RATE_MS);
+					if (!LoRa.begin(BAND)) {
+						Serial.println("Starting LoRa failed!");
+						vTaskDelay(5000 / portTICK_RATE_MS);
+
+					}
+					LoRa.setSpreadingFactor(12);
+					LoRa.setCodingRate4(8);
+					LoRa.setSignalBandwidth(250000);
+					LoRa.setPreambleLength(PREAMBLES);
+					LoRa.beginPacket();
+					LoRa.write((uint8_t*) &scalesData, sizeof(scalesData));
+					LoRa.endPacket();
 
 				}
-				LoRa.setSpreadingFactor(12);
-				LoRa.setCodingRate4(8);
-				LoRa.setSignalBandwidth(250000);
-				LoRa.setPreambleLength(PREAMBLES);
-				LoRa.beginPacket();
-				LoRa.write((uint8_t*) &scalesData, sizeof(scalesData));
-				LoRa.endPacket();
+				esp_sleep_enable_timer_wakeup(CYCLETIME * 1000000);
+				esp_deep_sleep_start();
 
+			}
 		}
-			esp_sleep_enable_timer_wakeup(wakeup_time_sec * 1000000);
-			esp_deep_sleep_start();
-
-		}
-	//	vTaskDelay(1);// / portTICK_RATE_MS);
+		//	vTaskDelay(1);// / portTICK_RATE_MS);
 	}
 }
-
-
 

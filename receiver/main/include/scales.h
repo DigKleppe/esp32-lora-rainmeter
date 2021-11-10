@@ -18,6 +18,7 @@ typedef struct {
 	float vBat;
 	float vSolar;
 	float temperature;
+	int cycles;
 	uint32_t crc;
 }scalesData_t ;
 

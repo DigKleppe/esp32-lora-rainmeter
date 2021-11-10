@@ -252,11 +252,12 @@ bool scalesTask() {
 #ifdef PRINT
 			float f = (float) weigth / 1000;
 			float mm = f / gPermm;
-			printf("%3.3f \t mm: %f\n", f, mm);
+			printf("%3.3f \t mm: %f %d\n", f, mm, pScalesData->cycles);
 #endif
 			if (weigth > (FULL_LEVEL * 1000) || zeroScales) {
 				pScalesData->totalWeight += weigth;
 				pScalesData->weight = 0;
+				pScalesData->cycles++;
 				state = 0; // open the gate!
 				zeroScales = false;
 			}

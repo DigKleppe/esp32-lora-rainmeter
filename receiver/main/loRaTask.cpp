@@ -96,6 +96,7 @@ void uartPrintScalesData(scalesData_t *scalesData) {
 	printf("t:%2.2f ", scalesData->temperature);
 	printf("vBat:%2.2f ", scalesData->vBat);
 	printf("vSol:%2.2f ", scalesData->vSolar);
+	printf("cycles:%d ", scalesData->cycles);
 }
 
 bool checkCRCscalesData(scalesData_t *scalesData) {
@@ -173,7 +174,8 @@ int printScalesData (char * p , scalesData_t * d ) {
 	len += sprintf ( p + len ,"%d,",d->rawWeight);
 	len += sprintf ( p + len ,"%2.2f,",d->vBat);
 	len += sprintf ( p + len ,"%2.2f,",d->vSolar);
-	len += sprintf ( p + len ,"%2.2f,\n",d->temperature);
+	len += sprintf ( p + len ,"%2.2f,",d->temperature);
+	len += sprintf ( p + len ,"%d,\n",d->cycles);
 	return len;
 }
 
