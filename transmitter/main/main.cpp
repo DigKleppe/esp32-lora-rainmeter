@@ -246,7 +246,7 @@ extern "C" void app_main(void) {
 #ifdef FAST
 	if (dayTimer >= 5) {
 #else
-	if (dayTimer >= (24 * 60 /CYCLETIME)) {
+	if (dayTimer >= (24 * 60 *60) /CYCLETIME)  {
 #endif
 		dayTimer = 0;
 		zeroScales = true; // force open valve and zero

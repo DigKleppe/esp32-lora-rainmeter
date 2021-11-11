@@ -29,7 +29,6 @@
 #define MOTORONTIME			1
 #define DRAINOPENTIME		5	// seconds
 #define CLOSETIME			3	// maximum time to close
-//#define FULLTIME			10  // seconds above FULL_LEVEL to open the drain;
 #define FULL_LEVEL			130 // grams
 // drain ball valve driven by a H-bridge
 // has 2 endcontacts in series
@@ -154,18 +153,12 @@ void scalesInitNoRAM(void) {
 }
 
 bool scalesTask() {
-
 	static uint32_t reading = 0;
-	//static int fullTimer = FULLTIME;
 	static int weigth = 0;
 	static RTC_DATA_ATTR int stepTimer = 0;
 
-	if (commandSync) {  // received from base station to open the drain
-		state = 0;
-		pScalesData->totalWeight = 0;
-		commandSync = false;
-	}
 	printf("state: %d \n", state);
+
 	if (stepTimer)
 		stepTimer--;
 	else {
