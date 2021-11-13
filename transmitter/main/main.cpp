@@ -73,7 +73,7 @@
 #include "ntc.h"
 #define PREAMBLES 				10  // nust be set at receiver side too
 
-//#define FAST					1
+//define FAST					1
 //
 
 #define CYCLETIME_LOWBAT		300 // at low bat
@@ -119,7 +119,7 @@ uint8_t ADDR_SDA = 0x4A;   // 1001010
 uint8_t ADDR_SCL = 0x4B;   // 1001011
 uint8_t ADDR = ADDR_VCC;
 
-SSD1306Wire display(0x3C, OLED_SDA, OLED_SCL);
+//SSD1306Wire display(0x3C, OLED_SDA, OLED_SCL);
 #endif
 
 RTC_DATA_ATTR scalesData_t scalesData;
@@ -155,14 +155,14 @@ void measureSystem(void) {
 	}
 #ifdef DMMBOARD
 //	tmpTemperature =  tmp.getTemperature();
-	err = Wire.lastError();
-	if (err) {
-		printf("\n%s ",Wire.getErrorText(err));
-		printScalesData();	}
-	sprintf ( str,"NTC: %2.1f", temperature[0]);
-
-	display.clear();
-	display.drawString(10, 0, str);
+//	err = Wire.lastError();
+//	if (err) {
+//		printf("\n%s ",Wire.getErrorText(err));
+//		printScalesData();	}
+//	sprintf ( str,"NTC: %2.1f", temperature[0]);
+//
+//	display.clear();
+//	display.drawString(10, 0, str);
 #else
 	//	sprintf(str, "NTC: %2.2f ", temperature[0]);
 #endif
@@ -172,17 +172,17 @@ void measureSystem(void) {
 	vBat = 2 * 4.096 * (float) read_raw / (float) 0x7FFF;
 
 #ifdef DMMBOARD
-	sprintf(str, "vBat: %2.2f ", vBat);
-	display.drawString(10, 15, str);
+//	sprintf(str, "vBat: %2.2f ", vBat);
+//	display.drawString(10, 15, str);
 #endif
 	//	printf("\%s", str);
 	read_raw = ADS.readADC(3); // Solarpanel
 	vSolar = 2 * 4.096 * (float) read_raw / (float) 0x7FFF;
 
 #ifdef DMMBOARD
-	sprintf(str, "vSolar: %2.2f ", vSolar);
-	display.drawString(10, 30, str);
-	display.display();
+//	sprintf(str, "vSolar: %2.2f ", vSolar);
+//	display.drawString(10, 30, str);
+//	display.display();
 #endif
 	//printf("%s", str);
 
@@ -253,22 +253,22 @@ extern "C" void app_main(void) {
 	}
 
 	while (1) {
-
+#ifndef DMMBOARD
 		if (vBat < VBATMIN) {
 			measureSystem();
-			if (vBat < VBATMIN ) {
+			if (vBat < VBATMIN) {
 				esp_sleep_enable_timer_wakeup(CYCLETIME_LOWBAT * 1000000);
 				esp_deep_sleep_start();
 			}
 		} else {
 			if (!scalesTask()) {
-//	if (1){
-#ifndef DMMBOARD
 				measureSystem();
-				//	printScalesData();
-//		scalesData.vBat++;
-//		scalesData.cycles++;
-//		scalesData.temperature = rand();
+#else
+		scalesData.vBat++;
+		scalesData.cycles++;
+		scalesData.temperature = rand();
+
+		if (!scalesTask()) {
 #endif
 				loraTxTmr++;
 				if (loraTxTmr >= ( LORATXTIME / CYCLETIME)) {
@@ -297,7 +297,6 @@ extern "C" void app_main(void) {
 
 			}
 		}
-		//	vTaskDelay(1);// / portTICK_RATE_MS);
-	}
+	} //	vTaskDelay(1);// / portTICK_RATE_MS);
 }
 

@@ -12,8 +12,8 @@
 #include "main.h"
 #include "LoRa.h"
 #ifdef DMMBOARD
-#include <Wire.h>
-#include <MCP23017.h>
+//#include <Wire.h>
+//#include <MCP23017.h>
 
 #endif
 
@@ -24,7 +24,7 @@
 
 #define WEIGHTBUFFERSIZE 	32
 //#define WEIGHTBUFFERSIZE 	4
-#define CALFACTOR	   (100.0/49.4)   // to get reading in mg
+#define CALFACTOR	   (100000.0/(579973-481011))   // to get reading in mg
 
 #define MOTORONTIME			1
 #define DRAINOPENTIME		5	// seconds
@@ -38,10 +38,10 @@
 // driver DRV8833 pins
 #define PRINT	1
 
-#ifdef DMMBOARD
-#define MCP23017_ADDR 0x20
-MCP23017 mcp = MCP23017(MCP23017_ADDR);
-#endif
+//#ifdef DMMBOARD
+//#define MCP23017_ADDR 0x20
+//MCP23017 mcp = MCP23017(MCP23017_ADDR);
+//#endif
 
 typedef enum {
 	MC_OFF, MC_OPENC, MC_OPEN, MC_CLOSEC, MC_CLOSE
@@ -107,8 +107,8 @@ void motorControl(motorCntr_t motorCntr) {
 	}
 
 #ifdef DMMBOARD
-	uint8_t a = Ain1 + (Ain2<<1) + (Bin1 << 2) +(Bin2<<3);
-	mcp.writePort(MCP23017Port::A, a);
+//	uint8_t a = Ain1 + (Ain2<<1) + (Bin1 << 2) +(Bin2<<3);
+//	mcp.writePort(MCP23017Port::A, a);
 #else
 	gpio_set_level(A1_INPIN, Ain1);
 	gpio_set_level(A2_INPIN, Ain2);
@@ -123,12 +123,12 @@ void scalesInit(void) {
 
 	//initBuffer(&weightBuffer, WEIGHTBUFFERSIZE);
 #ifdef DMMBOARD
-		uint8_t err;
-	    mcp.init();
-	    mcp.portMode(MCP23017Port::A, 0);          //Port A as output
-	    err = Wire.lastError();
-	    if ( err)
-	    	printf ( "I2C err: %s",Wire.getErrorText( err));
+//		uint8_t err;
+//	    mcp.init();
+//	    mcp.portMode(MCP23017Port::A, 0);          //Port A as output
+//	    err = Wire.lastError();
+//	    if ( err)
+//	    	printf ( "I2C err: %s",Wire.getErrorText( err));
 
 	#else
 	gpio_pad_select_gpio (A1_INPIN);
@@ -153,11 +153,11 @@ void scalesInitNoRAM(void) {
 }
 
 bool scalesTask() {
-	static uint32_t reading = 0;
+	static int32_t reading = 0;
 	static int weigth = 0;
 	static RTC_DATA_ATTR int stepTimer = 0;
 
-	printf("state: %d \n", state);
+	//printf("state: %d \n", state);
 
 	if (stepTimer)
 		stepTimer--;
@@ -167,6 +167,9 @@ bool scalesTask() {
 			motorControl(MC_OPENC); // drain valve open
 			stepTimer = BYPASSTIME * 10;
 			state++;
+#ifdef DMMBOARD
+			state = 11;
+#endif
 			break;
 		case 1:
 			motorControl(MC_OPEN);  // bypass endswitches off
@@ -201,7 +204,9 @@ bool scalesTask() {
 			break;
 
 		case 10:			 //zero reading after valve is closed
+			gpio_set_level ((gpio_num_t)LOADCELL_SCK_PIN , 0); // awake HX711
 			if (scale.is_ready()) {
+
 				reading = scale.read();
 				writeBuffer(&weightBuffer, reading);
 				avgCntr++;
@@ -222,6 +227,7 @@ bool scalesTask() {
 		{
 			avgCntr = 0;
 			initBuffer(&weightBuffer, WEIGHTBUFFERSIZE);
+			gpio_set_level ((gpio_num_t)LOADCELL_SCK_PIN , 0); // awake HX711
 
 			do {
 				if (scale.is_ready()) {
@@ -231,6 +237,8 @@ bool scalesTask() {
 					avgCntr++;
 				}
 			} while (avgCntr < WEIGHTBUFFERSIZE);
+
+			gpio_set_level ((gpio_num_t)LOADCELL_SCK_PIN , 1); // put in sleep mode
 
 			pScalesData->rawWeight =  (int) (averageBuffer(&weightBuffer));
 
@@ -245,7 +253,8 @@ bool scalesTask() {
 #ifdef PRINT
 			float f = (float) weigth / 1000;
 			float mm = f / gPermm;
-			printf("%3.3f \t mm: %f %d\n", f, mm, pScalesData->cycles);
+		//	printf("%3.3f \t mm: %f %d\n", f, mm, pScalesData->cycles);
+			printf("%3.3f \t mm: %f\n", f, mm);
 #endif
 			if (weigth > (FULL_LEVEL * 1000) || zeroScales) {
 				pScalesData->totalWeight += weigth;
@@ -254,10 +263,10 @@ bool scalesTask() {
 				state = 0; // open the gate!
 				zeroScales = false;
 			}
-			if (weigth < -2 * 1000) {  // negative weigth, miracle has happend
-				state = 10; // zero
-				//state = 0; // open the gate!				}
-			}
+//			if (weigth < -2 * 1000) {  // negative weigth, miracle has happend
+//				state = 10; // zero
+//				//state = 0; // open the gate!				}
+//			}
 		}
 			break;
 
@@ -267,6 +276,16 @@ bool scalesTask() {
 
 		}
 	}
+
+
+//	vTaskDelay(100 / portTICK_RATE_MS);
+//return (1); // busy, no sleep
+
+
+#ifdef DMMBOARD
+	return 1;
+#endif
+
 	if (state == 11) //
 		return (0); // normal nothing to do , can do sleep
 	else {
